@@ -68,4 +68,3 @@ C:\Users\Admin\Desktop\priv\New folder\dot\SpotifyRecords\Consumer\bin\Debug\net
 C:\Users\Admin\Desktop\priv\New folder\dot\SpotifyRecords\Consumer\bin\Debug\net6.0\runtimes\linux\native\libmongocrypt.so
 C:\Users\Admin\Desktop\priv\New folder\dot\SpotifyRecords\Consumer\bin\Debug\net6.0\runtimes\osx\native\libmongocrypt.dylib
 C:\Users\Admin\Desktop\priv\New folder\dot\SpotifyRecords\Consumer\bin\Debug\net6.0\runtimes\win\native\mongocrypt.dll
-C:\Users\Admin\Desktop\priv\New folder\dot\SpotifyRecords\Consumer\bin\Debug\net6.0\AutoMapper.dll

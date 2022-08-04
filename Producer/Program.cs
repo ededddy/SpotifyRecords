@@ -101,7 +101,6 @@ public class Program
 						Console.WriteLine("Message Delivered to \n" +
 						                  $"\t{produceResult.Topic} at {produceResult.Partition}");
 						Console.WriteLine($"\tOffSet : {produceResult.Offset}");
-						Console.WriteLine($"Value : {produceResult.Message.Value}");
 					}
 					catch (ProduceException<string, string> e)
 					{

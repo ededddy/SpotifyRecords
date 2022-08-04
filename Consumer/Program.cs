@@ -26,6 +26,8 @@ public class Program
 			EnableAutoCommit = false,
 		};
 
+		Dictionary<string, bool> KeyTable = new Dictionary<string, bool>();
+
 		ConsumerBuilder<string, string> builder = new ConsumerBuilder<string, string>(config);
 		builder.SetKeyDeserializer(Deserializers.Utf8);
 		builder.SetValueDeserializer(Deserializers.Utf8);
@@ -37,7 +39,7 @@ public class Program
 			cts.Cancel();
 		};
 		using (var consumer = builder
-			       // boilerplate code from sample for manuall commit
+			       // boilerplate code from sample for manually commit
 			       // https://github.com/confluentinc/confluent-kafka-dotnet/blob/master/examples/Consumer/Program.cs
 			       .SetErrorHandler((_, e) => Console.WriteLine($"Error: {e.Reason}"))
 			       .SetStatisticsHandler((_, json) => Console.WriteLine($"Statistics: {json}"))
@@ -88,9 +90,16 @@ public class Program
 						var consumeResult = consumer.Consume(cts.Token);
 						FullTrack? track = JsonSerializer.Deserialize<FullTrack>(consumeResult.Message.Value);
 						Console.WriteLine("Message Received");
-						if (track == null)
-							continue;
-						await currentPlayingRepository.InsertDocument(track);
+
+						if (!KeyTable.TryGetValue(track!.Id, out _))
+						{
+							Console.WriteLine("New record received");
+							await currentPlayingRepository.InsertDocument(track!);
+							KeyTable[track!.Id] = true;
+						}
+						else
+							Console.WriteLine("Same Record, skipping insert");
+
 						try
 						{
 							consumer.Commit(consumeResult);
